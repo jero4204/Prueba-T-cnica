@@ -1,31 +1,39 @@
 import { useState,useEffect } from 'react';
 import { PlayerNBA } from '../models/player.model';
-import { Player } from './Sentence';
-import { Values } from '../models/values.model';
-
-let aaaa: string[] = []
 
 export const ShowQuote = () => {
-    const [quote, setQuote] = useState<PlayerNBA>({
-        first_name: '',
-        last_name: '',
-        h_in: '',
-    });
-    const [values, setValues] = useState<Values>({
-        values: [],
-    });
-    
+    const [quote, setQuote] = useState<PlayerNBA[]>([]);
+   
+    const getValues = async () => {
+        const apiUrl = 'https://mach-eight.uc.r.appspot.com/';
+        // Usamos fetch para hacer la solicitud
+        fetch(apiUrl).then(response => {
+            // Verificamos si la respuesta es exitosa
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Convertimos la respuesta a JSON
+            return response.json();
+        }).then(data => {
+            // Aquí `data` es el objeto JSON obtenido de la API
+            // Si `data` es un array, simplemente puedes asignarlo a una variable
+            console.log(data); 
+            setQuote(data);
+            
+        }).catch(error => {
+            // Manejo de errores
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    }
     const getQuote = async () => {
-        const response = await fetch('https://mach-eight.uc.r.appspot.com/');
-        const data = await response.json();
-        setQuote(data[0]);      
+        getValues();
+             
     }
     useEffect(() => {
         getQuote();
     }, [])
   return (
     <div>
-        <Player quote={quote}/>
         <button onClick={getQuote} 
         className="bg-blue-500 text-white font-bold px-4 py-2 rounded mt-4">
             Get Quote</button>
