@@ -9,7 +9,7 @@ export const ShowQuote = () => {
     const [estaturaPareja, setEstaturaPareja] = useState<number | string>('');
 
     let menorestatura = 139;
-    let mayorestatura = 90;
+    let mayorestatura = 177;
    
     const getValues = async () => {
         const apiUrl = 'https://mach-eight.uc.r.appspot.com/';
@@ -40,18 +40,17 @@ export const ShowQuote = () => {
         let respuestas: Respuesta[] = [];
         if(Number(estaturaPareja) >= menorestatura && Number(estaturaPareja) <= mayorestatura){
             let i = 0;
-            while(i<valuesOrg.length-1 && (Number(valuesOrg[i].h_in)+Number(valuesOrg[i+1].h_in))<= Number(estaturaPareja)){
+            while(i<valuesOrg.length-1){
                 let estaturaRequerida = Number(estaturaPareja)-Number(valuesOrg[i].h_in);
                 let w = i+1;
                 while(estaturaRequerida >= Number(valuesOrg[w].h_in)){
-                    if(estaturaRequerida = Number(valuesOrg[w].h_in)){
+                    if(estaturaRequerida == Number(valuesOrg[w].h_in)){
                         respuestas.push({first_name1: valuesOrg[i].first_name, last_name1: valuesOrg[i].last_name, first_name2: valuesOrg[w].first_name, last_name2: valuesOrg[w].last_name})
                     }
                     w = w+1;
                 }
                 i = i+1;
             }
-            setRespuesta(respuestas);
         }else{
             console.log("No hay parejas con esa estatura")
         }
