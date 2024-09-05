@@ -6,6 +6,7 @@ export const ShowQuote = () => {
     const [values, setValues] = useState<PlayerNBA[]>([]);
     const [valuesOrg, setValuesOrg] = useState<PlayerNBA[]>([]);
     const [respuesta, setRespuesta] = useState<Respuesta[]>([]);
+    const [estaturaPareja, setEstaturaPareja] = useState<number | string>('');
 
     let menorestatura = 139;
     let mayorestatura = 90;
@@ -35,12 +36,12 @@ export const ShowQuote = () => {
         setValuesOrg(values.sort((a, b) => Number(a.h_in) - Number(b.h_in)));
     }
 
-    const encontrarParejas = async (estaturaPareja: number) => {
-        if(estaturaPareja >= menorestatura && estaturaPareja <= mayorestatura){
+    const encontrarParejas = async () => {
+        let respuestas: Respuesta[] = [];
+        if(Number(estaturaPareja) >= menorestatura && Number(estaturaPareja) <= mayorestatura){
             let i = 0;
-            let respuestas: Respuesta[] = [];
-            while(i<valuesOrg.length){
-                let estaturaRequerida = estaturaPareja-Number(valuesOrg[i].h_in);
+            while(i<valuesOrg.length-1 && (Number(valuesOrg[i].h_in)+Number(valuesOrg[i+1].h_in))<= Number(estaturaPareja)){
+                let estaturaRequerida = Number(estaturaPareja)-Number(valuesOrg[i].h_in);
                 let w = i+1;
                 while(estaturaRequerida >= Number(valuesOrg[w].h_in)){
                     if(estaturaRequerida = Number(valuesOrg[w].h_in)){
@@ -54,11 +55,13 @@ export const ShowQuote = () => {
         }else{
             console.log("No hay parejas con esa estatura")
         }
+        setRespuesta(respuestas);
     }
 
     const boton = async () => {
         getValues();
         getValuesOrg();
+        encontrarParejas();
     }
 
     useEffect(() => {
@@ -68,9 +71,11 @@ export const ShowQuote = () => {
 
   return (
     <div>
+        <input type="number" value={estaturaPareja} onChange={(e)=> setEstaturaPareja(e.target.value)}
+        placeholder="Ingrese la estatura"></input>
         <button onClick={boton} 
         className="bg-blue-500 text-white font-bold px-4 py-2 rounded mt-4">
-            Get Quote</button>
+            Obtener Parejas</button>
     </div>
   )
 }
