@@ -9,7 +9,7 @@ export const ParejasRespuesta = ({quote}:SentenceProps) => {
         return (
             <div>
                 {quote.map((pareja,index)=>(
-                    <p key={index} className="text-xl font-bold text-gray-800">{pareja.first_name1} {pareja.last_name1} y {pareja.first_name2} {pareja.last_name2}</p>
+                    <p key={index} className="text-l font-bold text-gray-800">{pareja.first_name1} {pareja.last_name1} y {pareja.first_name2} {pareja.last_name2}</p>
                 ))}
             </div> 
         )

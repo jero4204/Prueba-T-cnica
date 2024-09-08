@@ -74,10 +74,11 @@ export const ShowQuote = () => {
     <div>
         <h1 className="bg-blue-500 text-white text-2xl font-bold px-4 py-4 rounded mt-4">Mach Eight Sample Project</h1>
         <input className="font-bold px-2 py-2 rounded mt-4" type="number" value={estaturaPareja} onChange={(e)=> setEstaturaPareja(e.target.value)}
-        placeholder="Ingrese la estatura"></input>
+        placeholder="Enter the partner's height"></input>
         <button onClick={boton} 
         className="bg-blue-500 text-white font-bold px-4 py-2 rounded mt-4">
-            Obtener Parejas</button>
+            Get Partner's</button>
+        <h1 className="bg-blue-500 text-white text-xl font-bold px-4 py-4 rounded mt-4">Partner's</h1>
         <ParejasRespuesta quote={respuesta}/>
     </div>
   )
