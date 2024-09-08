@@ -1,6 +1,7 @@
 import { useState,useEffect } from 'react';
 import { PlayerNBA } from '../models/player.model';
 import { Respuesta } from '../models/respuesta.model';
+import { ParejasRespuesta } from './Sentence';
 
 export const ShowQuote = () => {
     const [values, setValues] = useState<PlayerNBA[]>([]);
@@ -40,10 +41,10 @@ export const ShowQuote = () => {
         let respuestas: Respuesta[] = [];
         if(Number(estaturaPareja) >= menorestatura && Number(estaturaPareja) <= mayorestatura){
             let i = 0;
-            while(i<valuesOrg.length-1){
+            while(i<(valuesOrg.length-1) && ((Number(valuesOrg[i].h_in)+Number(valuesOrg[i+1].h_in))<=Number(estaturaPareja))){
                 let estaturaRequerida = Number(estaturaPareja)-Number(valuesOrg[i].h_in);
                 let w = i+1;
-                while(estaturaRequerida >= Number(valuesOrg[w].h_in)){
+                while(w<(valuesOrg.length) && estaturaRequerida >= Number(valuesOrg[w].h_in)){
                     if(estaturaRequerida == Number(valuesOrg[w].h_in)){
                         respuestas.push({first_name1: valuesOrg[i].first_name, last_name1: valuesOrg[i].last_name, first_name2: valuesOrg[w].first_name, last_name2: valuesOrg[w].last_name})
                     }
@@ -66,15 +67,18 @@ export const ShowQuote = () => {
     useEffect(() => {
         getValues();
         getValuesOrg();
+        encontrarParejas();
     }, [])
 
   return (
     <div>
-        <input type="number" value={estaturaPareja} onChange={(e)=> setEstaturaPareja(e.target.value)}
+        <h1 className="bg-blue-500 text-white text-2xl font-bold px-4 py-4 rounded mt-4">Mach Eight Sample Project</h1>
+        <input className="font-bold px-2 py-2 rounded mt-4" type="number" value={estaturaPareja} onChange={(e)=> setEstaturaPareja(e.target.value)}
         placeholder="Ingrese la estatura"></input>
         <button onClick={boton} 
         className="bg-blue-500 text-white font-bold px-4 py-2 rounded mt-4">
             Obtener Parejas</button>
+        <ParejasRespuesta quote={respuesta}/>
     </div>
   )
 }
