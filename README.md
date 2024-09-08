@@ -28,3 +28,12 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## How to run
+First copy the project in your computer, open a directory in the terminal and copy this github repository
+Then open the project in the terminal run the code "npm run dev"
+This will provide in the terminal a link to a localhost that you can access by clicking crl and the link at the same time
+Know you must be able to explore and interact with the project
+
+## Credits
+Authors: Juan Felipe Gomez Londoño and Jeronimo Sanchez Cardozo
